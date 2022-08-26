@@ -1,5 +1,6 @@
 <script setup>
 import { WalletMultiButton } from "solana-wallets-vue";
+import Dashboard from "./views/Dashboard.vue";
 </script>
 
 <template>
@@ -15,6 +16,7 @@ import { WalletMultiButton } from "solana-wallets-vue";
       </v-app-bar>
 
       <v-container class="Home-content">
+        <Dashboard />
         <h1 id="home-title">Blockchain,</h1>
         <h1 id="home-title">IoT,</h1>
         <h1 id="home-title">Inovação</h1>
