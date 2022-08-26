@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="isConnected">
     <v-main>
       <v-alert type="warning" v-if="alertDisconnected">
         You must connect your wallet</v-alert
@@ -7,7 +7,7 @@
       <v-alert type="success" v-if="alertConnected">
         Connection successfuly made!</v-alert
       >
-      <p v-if="isConnected">TESTEEEEE</p>
+      <p>TESTEEEEE</p>
     </v-main>
   </v-app>
 </template>

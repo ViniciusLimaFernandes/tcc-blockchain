@@ -6,7 +6,7 @@ import Dashboard from "./views/Dashboard.vue";
 <template>
   <v-app class="home">
     <v-main>
-      <v-app-bar flat color="transparent" style="margin-top: 1vh; height: 50vh">
+      <v-app-bar flat color="transparent" style="margin-top: 1vh; height: 35vh">
         <v-app-bar-title
           ><img class="toolbar-image" src="./assets/logo.png" contain
         /></v-app-bar-title>
