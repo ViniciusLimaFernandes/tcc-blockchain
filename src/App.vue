@@ -6,7 +6,7 @@ import Dashboard from "./views/Dashboard.vue";
 <template>
   <v-app class="home">
     <v-main>
-      <v-app-bar flat color="transparent" style="margin-top: 1vh; height: 35vh">
+      <v-app-bar flat color="transparent" style="margin-top: 1vh; height: 40vh">
         <v-app-bar-title
           ><img class="toolbar-image" src="./assets/logo.png" contain
         /></v-app-bar-title>
@@ -14,9 +14,8 @@ import Dashboard from "./views/Dashboard.vue";
           <wallet-multi-button dark />
         </v-toolbar-items>
       </v-app-bar>
-
+      <Dashboard />
       <v-container class="Home-content">
-        <Dashboard />
         <h1 id="home-title">Blockchain,</h1>
         <h1 id="home-title">IoT,</h1>
         <h1 id="home-title">Inovação</h1>
@@ -24,6 +23,7 @@ import Dashboard from "./views/Dashboard.vue";
           Mantenha o controle dos seus dispositivos de forma segura e
           transparente.
         </p>
+        <v-btn> Add device</v-btn>
       </v-container>
     </v-main>
   </v-app>

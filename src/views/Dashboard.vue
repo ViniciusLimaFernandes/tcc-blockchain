@@ -1,14 +1,16 @@
 <template>
-  <v-app v-if="isConnected">
-    <v-main>
-      <v-alert type="warning" v-if="alertDisconnected">
-        You must connect your wallet</v-alert
-      >
-      <v-alert type="success" v-if="alertConnected">
+  <v-alert type="error" v-if="alertDisconnected" class="alert">
+    You must connect your wallet</v-alert
+  >
+  <v-app v-if="isConnected" class="dash-app">
+    <v-container class="dash-container">
+      <v-alert type="success" v-if="alertConnected" class="alert">
         Connection successfuly made!</v-alert
       >
-      <p>TESTEEEEE</p>
-    </v-main>
+      <p class="dash-title">Control panel</p>
+      <p class="dash-hubs">Hubs: 1</p>
+      <v-btn style="position: fixed; z-index: -1"> Add device</v-btn>
+    </v-container>
   </v-app>
 </template>
 
@@ -55,3 +57,57 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@font-face {
+  font-family: Inter;
+  src: url("./fonts/Inter-Light.otf");
+}
+.dash-app {
+  margin-top: 4vh;
+  min-width: fit-content;
+}
+
+.dash-title {
+  font-family: "Inter-Extrabold";
+  font-style: bold;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 44px;
+
+  background: radial-gradient(
+    141.6% 247.26% at 4.44% -42.89%,
+    #fe1aa7 0%,
+    #fefdc2 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dash-hubs {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 44px;
+
+  background: radial-gradient(
+    141.6% 247.26% at 4.44% -42.89%,
+    #fe1aa7 0%,
+    #fefdc2 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.alert {
+  width: fit-content;
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+}
+</style>
