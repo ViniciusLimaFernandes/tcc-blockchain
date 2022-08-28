@@ -6,13 +6,13 @@ import Dashboard from "./views/Dashboard.vue";
 <template>
   <v-app class="home">
     <v-main>
-      <v-app-bar flat color="transparent" style="margin-top: 1vh; height: 40vh">
+      <div class="wallet-style">
+        <wallet-multi-button dark />
+      </div>
+      <v-app-bar flat color="transparent" style="margin-top: 1vh">
         <v-app-bar-title
           ><img class="toolbar-image" src="./assets/logo.png" contain
         /></v-app-bar-title>
-        <v-toolbar-items style="padding-right: 2vh; align-items: center">
-          <wallet-multi-button dark />
-        </v-toolbar-items>
       </v-app-bar>
       <Dashboard />
       <v-container class="Home-content">
@@ -23,7 +23,6 @@ import Dashboard from "./views/Dashboard.vue";
           Mantenha o controle dos seus dispositivos de forma segura e
           transparente.
         </p>
-        <v-btn> Add device</v-btn>
       </v-container>
     </v-main>
   </v-app>
@@ -63,6 +62,13 @@ export default {
   left: 110px;
   top: 337px;
 }
+
+  .wallet-style {
+    position: fixed;
+    right: 3vh;
+    top: 2vh;
+    z-index: 9999;
+  }
 
 #home-title {
   font-family: "Inter-Extrabold";

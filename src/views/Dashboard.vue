@@ -9,7 +9,7 @@
       >
       <p class="dash-title">Control panel</p>
       <p class="dash-hubs">Hubs: 1</p>
-      <v-btn style="position: fixed; z-index: -1"> Add device</v-btn>
+      <v-btn> Add device</v-btn>
     </v-container>
   </v-app>
 </template>
