@@ -63,6 +63,15 @@ export default {
   font-family: Inter;
   src: url("./fonts/Inter-Light.otf");
 }
+
+@keyframes fadeinout {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 .dash-app {
   margin-top: 4vh;
   min-width: fit-content;
@@ -109,5 +118,6 @@ export default {
   bottom: 50px;
   transform: translate(-50%, -50%);
   margin: 0 auto;
+  animation: fadeinout 2s linear 1 forwards;
 }
 </style>
