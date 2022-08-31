@@ -9,7 +9,9 @@
       >
       <p class="dash-title">Control panel</p>
       <p class="dash-hubs">Hubs: 1</p>
-      <v-btn> Add device</v-btn>
+      <v-btn class="add-device-button" icon color="blue">
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
     </v-container>
   </v-app>
 </template>
@@ -119,5 +121,12 @@ export default {
   transform: translate(-50%, -50%);
   margin: 0 auto;
   animation: fadeinout 2s linear 1 forwards;
+}
+
+.add-device-button {
+  position: fixed;
+  right: 5vh;
+  bottom: 5vh;
+  z-index: 9999;
 }
 </style>
