@@ -57,6 +57,10 @@
   </v-dialog>
 </template>
 
+<script setup>
+import createHub from "../scripts/solana";
+</script>
+
 <script>
 export default {
   name: "RegisterDevice",

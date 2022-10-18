@@ -13,6 +13,9 @@ export default defineConfig({
   optimizeDeps: {
     esbuildOptions: { target: "es2020", supported: { bigint: true } },
   },
+  define: {
+    "process.env": process.env,
+  },
   plugins: [vue(), vueJsx(), vuetify({ autoImport: true })],
   resolve: {
     alias: {

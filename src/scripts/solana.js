@@ -1,6 +1,5 @@
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import { Program, AnchorProvider, web3 } from "@project-serum/anchor";
-import { Buffer } from "buffer";
 
 import idl from "../config/idl.json";
 
@@ -42,6 +41,4 @@ const getProvider = () => {
   return provider;
 };
 
-export default {
-  createHub,
-};
+export default createHub;

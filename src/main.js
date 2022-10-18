@@ -11,9 +11,6 @@ import {
   SolflareWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import "solana-wallets-vue/styles.css";
-import { Buffer } from "buffer";
-
-window.Buffer = Buffer;
 
 const walletOptions = {
   wallets: [
