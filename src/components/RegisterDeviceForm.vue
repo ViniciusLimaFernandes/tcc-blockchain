@@ -19,6 +19,7 @@
                   label="Name *"
                   hint="Display name"
                   counter="25"
+                  v-model="name"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -28,17 +29,21 @@
                   variant="underlined"
                   label="KWh price *"
                   hint="Your desired KWh price to be charged"
+                  v-model="price"
                   counter="25"
                 ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="1" sm="12">
+              <v-col cols="1" sm="3">
                 <v-text-field
                   variant="underlined"
+                  type="number"
                   label="Total ports *"
                   hint="Total ports that your device have"
-                  counter="36"
+                  min="1"
+                  max="5"
+                  v-model="ports"
                   required
                 ></v-text-field>
               </v-col>
@@ -48,7 +53,7 @@
           <v-card-actions id="card-actions">
             <v-divider></v-divider>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="dialog = false"> close </v-btn>
+            <v-btn color="primary" text @click="onSave"> close </v-btn>
             <v-btn color="primary" text @click="dialog = false"> save </v-btn>
           </v-card-actions>
         </v-col>
@@ -64,8 +69,21 @@ import createHub from "../scripts/solana";
 <script>
 export default {
   name: "RegisterDevice",
+  data() {
+    return {
+      name: "",
+      price: "",
+      ports: "",
+    };
+  },
   props: {
     dialog: Boolean,
+  },
+  methods: {
+    onSave() {
+      createHub(this.name, this.price, this.ports);
+      this.dialog = false;
+    },
   },
 };
 </script>

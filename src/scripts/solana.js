@@ -11,6 +11,7 @@ const opts = {
 const { SystemProgram } = web3;
 
 const createHub = async (hubName, kwhPrice, totalPorts) => {
+  console.log("creating a new hub");
   try {
     const provider = getProvider();
     const program = new Program(idl, programId, provider);
