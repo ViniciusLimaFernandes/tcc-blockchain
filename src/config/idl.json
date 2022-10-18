@@ -1,27 +1,102 @@
 {
-    "version": "0.1.0",
-    "name": "tcc_bc_smart_contract",
-    "instructions": [
-      {
-        "name": "create",
-        "accounts": [
+  "version": "0.1.0",
+  "name": "tcc_bc_smart_contract",
+  "instructions": [
+    {
+      "name": "create",
+      "accounts": [
+        {
+          "name": "hub",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "kwhPrice",
+          "type": "i32"
+        },
+        {
+          "name": "totalPorts",
+          "type": "i8"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "useHub",
+      "accounts": [
+        {
+          "name": "hub",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "totalToBePaid",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "accounts": [
+        {
+          "name": "hub",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Hub",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            "name": "hub",
-            "isMut": true,
-            "isSigner": true
+            "name": "name",
+            "type": "string"
           },
           {
-            "name": "user",
-            "isMut": true,
-            "isSigner": true
+            "name": "usages",
+            "type": "u64"
           },
           {
-            "name": "systemProgram",
-            "isMut": false,
-            "isSigner": false
-          }
-        ],
-        "args": [
+            "name": "owner",
+            "type": "publicKey"
+          },
           {
             "name": "kwhPrice",
             "type": "i32"
@@ -29,95 +104,25 @@
           {
             "name": "totalPorts",
             "type": "i8"
-          }
-        ]
-      },
-      {
-        "name": "useHub",
-        "accounts": [
-          {
-            "name": "hub",
-            "isMut": true,
-            "isSigner": false
           },
           {
-            "name": "user",
-            "isMut": true,
-            "isSigner": true
-          },
-          {
-            "name": "systemProgram",
-            "isMut": false,
-            "isSigner": false
-          }
-        ],
-        "args": [
-          {
-            "name": "totalToBePaid",
+            "name": "balance",
             "type": "u64"
           }
         ]
-      },
-      {
-        "name": "withdraw",
-        "accounts": [
-          {
-            "name": "hub",
-            "isMut": true,
-            "isSigner": false
-          },
-          {
-            "name": "user",
-            "isMut": true,
-            "isSigner": true
-          }
-        ],
-        "args": []
       }
-    ],
-    "accounts": [
-      {
-        "name": "Hub",
-        "type": {
-          "kind": "struct",
-          "fields": [
-            {
-              "name": "usages",
-              "type": "u64"
-            },
-            {
-              "name": "owner",
-              "type": "publicKey"
-            },
-            {
-              "name": "kwhPrice",
-              "type": "i32"
-            },
-            {
-              "name": "totalPorts",
-              "type": "i8"
-            },
-            {
-              "name": "balance",
-              "type": "u64"
-            }
-          ]
-        }
-      }
-    ],
-    "errors": [
-      {
-        "code": 6000,
-        "name": "IncorrectProgramId",
-        "msg": "The user is not the owner of the hub."
-      },
-      {
-        "code": 6001,
-        "name": "InsufficientFunds",
-        "msg": "Insufficient amount to withdraw."
-      }
-    ],
-    "metadata": {
-      "address": "5ohR2uLsJrTTPWnxJa27pRSdWxfyiWmwmMvLZQV42fbR"
     }
-  }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "IncorrectProgramId",
+      "msg": "The user is not the owner of the hub."
+    },
+    {
+      "code": 6001,
+      "name": "InsufficientFunds",
+      "msg": "Insufficient amount to withdraw."
+    }
+  ]
+}

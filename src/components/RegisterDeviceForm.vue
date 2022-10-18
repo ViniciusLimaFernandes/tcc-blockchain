@@ -14,24 +14,36 @@
           <v-card-text>
             <v-row>
               <v-col cols="1" sm="12">
-                <v-text-field variant="underlined" label="Name *" hint="Display name" counter="25"></v-text-field>
+                <v-text-field
+                  variant="underlined"
+                  label="Name *"
+                  hint="Display name"
+                  counter="25"
+                ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="1" sm="12">
-                <v-text-field variant="underlined" label="KWh price *" hint="Your desired KWh price to be charged"
-                  counter="25"></v-text-field>
+                <v-text-field
+                  variant="underlined"
+                  label="KWh price *"
+                  hint="Your desired KWh price to be charged"
+                  counter="25"
+                ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="1" sm="12">
-                <v-text-field variant="underlined" label="Total ports *" hint="Total ports that your device have"
-                  counter="36" required></v-text-field>
+                <v-text-field
+                  variant="underlined"
+                  label="Total ports *"
+                  hint="Total ports that your device have"
+                  counter="36"
+                  required
+                ></v-text-field>
               </v-col>
             </v-row>
           </v-card-text>
-
- 
 
           <v-card-actions id="card-actions">
             <v-divider></v-divider>
@@ -41,7 +53,6 @@
           </v-card-actions>
         </v-col>
       </v-row>
-
     </v-card>
   </v-dialog>
 </template>
@@ -56,15 +67,12 @@ export default {
 </script>
 
 <style scoped>
-
-
-
 #form-image {
   width: 60vh;
   height: 50vh;
 }
 
-#card-actions{
+#card-actions {
   position: fixed;
   bottom: 0;
   right: 0;
