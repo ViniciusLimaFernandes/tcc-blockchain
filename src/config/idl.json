@@ -8,7 +8,7 @@
         {
           "name": "hub",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
           "name": "user",
@@ -126,6 +126,6 @@
     }
   ],
   "metadata": {
-    "address": "5ohR2uLsJrTTPWnxJa27pRSdWxfyiWmwmMvLZQV42fbR"
+    "address": "DqYurgde3nbMFeCNS4HtxngsGoNns6nVc2PnCUbaqe28"
   }
 }

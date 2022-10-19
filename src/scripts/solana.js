@@ -16,7 +16,8 @@ const opts = {
 };
 const { SystemProgram } = web3;
 
-const createHub = async (hubName, kwhPrice, totalPorts) => {
+export const createHub = async (hubName, kwhPrice, totalPorts) => {
+  const keypair = web3.Keypair.generate();
   const provider = getProvider();
   const program = new Program(idl, programId, provider);
 
@@ -25,26 +26,28 @@ const createHub = async (hubName, kwhPrice, totalPorts) => {
     provider.wallet.publicKey.toString()
   );
 
-  const [hub] = await PublicKey.findProgramAddress(
-    [
-      utils.bytes.utf8.encode("tcc_bc_smart_contract"),
-      provider.wallet.publicKey.toBuffer(),
-    ],
-    program.programId
-  );
+  console.log(program);
 
-  console.log(programId.toString());
-  console.log(hub.toString());
-  await program.methods
-    .create(hubName, new BN(kwhPrice), new BN(totalPorts))
+  let tx = await program.methods
+    .create(new BN(kwhPrice), new BN(totalPorts), hubName)
     .accounts({
-      hub: hub,
+      hub: keypair.publicKey,
       user: provider.wallet.publicKey,
       systemProgram: web3.SystemProgram.programId,
     })
+    .signers([keypair])
     .rpc();
 
-  console.log(`created a new hub with address ${hub.toString()}`);
+  console.log(`created a new hub, transaction hash ${tx}`);
+};
+
+export const getAllHubs = async () => {
+  const provider = getProvider();
+  const program = new Program(idl, programId, provider);
+
+  const hubs = await program.account.hub.all();
+
+  return hubs;
 };
 
 const getProvider = () => {
@@ -56,5 +59,3 @@ const getProvider = () => {
   );
   return provider;
 };
-
-export default createHub;

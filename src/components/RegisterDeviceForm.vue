@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import createHub from "../scripts/solana";
+import { createHub, getAllHubs } from "../scripts/solana";
 </script>
 
 <script>
@@ -85,6 +85,7 @@ export default {
         `saving a new hub with ${this.name}, ${this.price}, ${this.ports}`
       );
       createHub(this.name, this.price, this.ports);
+      console.log(getAllHubs());
       this.$emit("closeDialog");
     },
     closeDialog() {
