@@ -1,5 +1,11 @@
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
-import { Program, AnchorProvider, web3, utils } from "@project-serum/anchor";
+import {
+  Program,
+  AnchorProvider,
+  web3,
+  utils,
+  BN,
+} from "@project-serum/anchor";
 
 import idl from "../config/idl.json";
 
@@ -24,7 +30,7 @@ const createHub = async (hubName, kwhPrice, totalPorts) => {
   );
 
   await program.methods
-    .create(hubName, kwhPrice, totalPorts)
+    .create(hubName, new BN(kwhPrice), new BN(totalPorts))
     .accounts({
       hub,
       user: provider.wallet.publicKey,
