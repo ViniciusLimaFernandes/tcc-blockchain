@@ -17,22 +17,28 @@ const opts = {
 const { SystemProgram } = web3;
 
 const createHub = async (hubName, kwhPrice, totalPorts) => {
-  console.log("creating a new hub");
   const provider = getProvider();
   const program = new Program(idl, programId, provider);
 
-  const hub = await PublicKey.findProgramAddress(
+  console.log(
+    "creating a new hub for user ",
+    provider.wallet.publicKey.toString()
+  );
+
+  const [hub] = await PublicKey.findProgramAddress(
     [
-      utils.bytes.utf8.encode("tcc-bc-smart-contract"),
+      utils.bytes.utf8.encode("tcc_bc_smart_contract"),
       provider.wallet.publicKey.toBuffer(),
     ],
     program.programId
   );
 
+  console.log(programId.toString());
+  console.log(hub.toString());
   await program.methods
     .create(hubName, new BN(kwhPrice), new BN(totalPorts))
     .accounts({
-      hub,
+      hub: hub,
       user: provider.wallet.publicKey,
       systemProgram: web3.SystemProgram.programId,
     })

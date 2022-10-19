@@ -8,7 +8,7 @@
         {
           "name": "hub",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "user",
@@ -113,9 +113,6 @@
       }
     }
   ],
-  "metadata": {
-    "address": "DeTH78f8BzftzAUY6kmo7grWPh1ESN1NZP9mSTBnUVyp"
-  },
   "errors": [
     {
       "code": 6000,
@@ -127,5 +124,8 @@
       "name": "InsufficientFunds",
       "msg": "Insufficient amount to withdraw."
     }
-  ]
+  ],
+  "metadata": {
+    "address": "5ohR2uLsJrTTPWnxJa27pRSdWxfyiWmwmMvLZQV42fbR"
+  }
 }
