@@ -1,17 +1,13 @@
 <script setup>
-import RegisterDevice from "./RegisterDeviceForm.vue";
+import RegisterDeviceForm from "./RegisterDeviceForm.vue";
 </script>
 
 <template>
   <v-card class="card">
-    <!-- <v-btn class="add-device-button" icon>
-      <v-icon>mdi-plus</v-icon>
-    </v-btn> -->
-    <RegisterDevice :dialog="showDialog" />
-    <v-btn class="add-device-button" icon @click="handleDialog">
+    <RegisterDeviceForm :dialog="showDialog" @closeDialog="closeDialog" />
+    <v-btn class="add-device-button" icon @click="openDialog">
       <v-icon>mdi-plus</v-icon>
     </v-btn>
-    <RegisterDevice class="add-device-button" />
     <p class="card-text">create new device</p>
   </v-card>
 </template>
@@ -25,12 +21,11 @@ export default {
     };
   },
   methods: {
-    handleDialog() {
-      if (this.showDialog) {
-        this.showDialog = false;
-        return;
-      }
+    openDialog() {
       this.showDialog = true;
+    },
+    closeDialog() {
+      this.showDialog = false;
     },
   },
 };

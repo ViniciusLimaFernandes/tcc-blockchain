@@ -53,8 +53,8 @@
           <v-card-actions id="card-actions">
             <v-divider></v-divider>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="onSave"> close </v-btn>
-            <v-btn color="primary" text @click="dialog = false"> save </v-btn>
+            <v-btn color="primary" text @click="closeDialog"> close </v-btn>
+            <v-btn color="primary" text @click="onSave"> save </v-btn>
           </v-card-actions>
         </v-col>
       </v-row>
@@ -81,8 +81,14 @@ export default {
   },
   methods: {
     onSave() {
+      console.log(
+        `saving a new hub with ${this.name}, ${this.price}, ${this.ports}`
+      );
       createHub(this.name, this.price, this.ports);
-      this.dialog = false;
+      this.$emit("closeDialog");
+    },
+    closeDialog() {
+      this.$emit("closeDialog");
     },
   },
 };
