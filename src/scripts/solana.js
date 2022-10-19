@@ -1,5 +1,5 @@
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
-import { Program, AnchorProvider, web3 } from "@project-serum/anchor";
+import { Program, AnchorProvider, web3, utils } from "@project-serum/anchor";
 
 import idl from "../config/idl.json";
 
@@ -12,24 +12,27 @@ const { SystemProgram } = web3;
 
 const createHub = async (hubName, kwhPrice, totalPorts) => {
   console.log("creating a new hub");
-  try {
-    const provider = getProvider();
-    const program = new Program(idl, programId, provider);
+  const provider = getProvider();
+  const program = new Program(idl, programId, provider);
 
-    const hub = await PublicKey.findProgramAddress(program.programId);
+  const hub = await PublicKey.findProgramAddress(
+    [
+      utils.bytes.utf8.encode("tcc-bc-smart-contract"),
+      provider.wallet.publicKey.toBuffer(),
+    ],
+    program.programId
+  );
 
-    await program.rpc.create(hubName, kwhPrice, totalPorts, {
-      accounts: {
-        hub,
-        user: provider.wallet.publicKey,
-        SystemProgram: SystemProgram.programId,
-      },
-    });
+  await program.methods
+    .create(hubName, kwhPrice, totalPorts)
+    .accounts({
+      hub,
+      user: provider.wallet.publicKey,
+      systemProgram: web3.SystemProgram.programId,
+    })
+    .rpc();
 
-    console.log(`created a new hub with address ${hub.toString()}`);
-  } catch (error) {
-    console.error(`failed to create a hub ${error}`);
-  }
+  console.log(`created a new hub with address ${hub.toString()}`);
 };
 
 const getProvider = () => {
