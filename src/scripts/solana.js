@@ -52,10 +52,11 @@ export const getAllHubs = () => {
       const hub = {
         publicKey: h.publicKey.toString(),
         name: h.account.name.toString(),
-        price: Number(h.account.kwhPrice),
+        price: Number(h.account.kwhPrice / 100),
         usages: Number(h.account.usages),
         ports: Number(h.account.totalPorts),
         balance: Number(h.account.balance),
+        owner: h.account.owner.toString(),
       };
 
       hubs.push(hub);

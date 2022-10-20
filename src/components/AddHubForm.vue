@@ -8,29 +8,33 @@
 
         <v-col class="form-inputs">
           <v-card-title class="text grey lighten-2">
-            Device information
+            Adicione um novo hub
           </v-card-title>
           <v-divider />
-          <v-card-text>
-            <v-row>
-              <v-col cols="1" sm="12">
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-row style="margin-top: 3px">
+              <v-col cols="1" sm="11">
                 <v-text-field
                   variant="underlined"
-                  label="Name *"
-                  hint="Display name"
+                  label="Nome *"
+                  hint="O nome do seu dispositivo"
                   counter="25"
                   v-model="name"
+                  :rules="nameRules"
+                  required
                 ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="1" sm="12">
+              <v-col cols="1" sm="11">
                 <v-text-field
                   variant="underlined"
-                  label="KWh price *"
-                  hint="Your desired KWh price to be charged"
+                  label="KWh em R$ *"
+                  hint="Preço do KWh em R$"
                   v-model="price"
-                  counter="25"
+                  counter="4"
+                  :rules="priceRules"
+                  required
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -39,22 +43,25 @@
                 <v-text-field
                   variant="underlined"
                   type="number"
-                  label="Total ports *"
-                  hint="Total ports that your device have"
+                  label="Portas *"
+                  hint="A quantidade total de portas que seu dispositivo possui"
                   min="1"
-                  max="5"
+                  max="4"
                   v-model="ports"
+                  :rules="portRules"
                   required
                 ></v-text-field>
               </v-col>
             </v-row>
-          </v-card-text>
+          </v-form>
 
           <v-card-actions id="card-actions">
             <v-divider></v-divider>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="closeDialog"> close </v-btn>
-            <v-btn color="primary" text @click="onSave"> save </v-btn>
+            <v-btn color="primary" :disabled="!valid" text @click="onSave">
+              save
+            </v-btn>
           </v-card-actions>
         </v-col>
       </v-row>
@@ -71,9 +78,22 @@ export default {
   name: "RegisterDevice",
   data() {
     return {
+      valid: true,
       name: "",
       price: "",
       ports: "",
+      nameRules: [
+        (v) => !!v || "Campo obrigatorio",
+        (v) => v.length <= 25 || "Esse campo deve ter menos que 25 caracteres",
+      ],
+      priceRules: [
+        (v) => !!v || "Campo obrigatorio",
+        (v) => v < 100 || "Use um preço adequado para a cobrança do KWh",
+      ],
+      portRules: [
+        (v) => !!v || "Campo obrigatorio",
+        (v) => (v > 0 && v <= 4) || "Seu dispositivo pode ter até 4 portas",
+      ],
     };
   },
   props: {
@@ -81,10 +101,14 @@ export default {
   },
   methods: {
     onSave() {
+      this.$refs.form.validate();
+
+      const priceInCents = this.price * 100;
+
       console.log(
-        `saving a new hub with ${this.name}, ${this.price}, ${this.ports}`
+        `saving a new hub with ${this.name}, ${priceInCents}, ${this.ports}`
       );
-      createHub(this.name, this.price, this.ports);
+      createHub(this.name, priceInCents, this.ports);
       console.log(getAllHubs());
       this.$emit("closeDialog");
     },

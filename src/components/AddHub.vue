@@ -1,20 +1,20 @@
 <script setup>
-import RegisterDeviceForm from "./RegisterDeviceForm.vue";
+import AddHubForm from "./AddHubForm.vue";
 </script>
 
 <template>
-  <v-card class="card">
-    <RegisterDeviceForm :dialog="showDialog" @closeDialog="closeDialog" />
-    <v-btn class="add-device-button" icon @click="openDialog">
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
-    <p class="card-text">create new device</p>
-  </v-card>
+  <AddHubForm :dialog="showDialog" @closeDialog="closeDialog" />
+  <v-btn
+    class="add-device-button"
+    icon="mdi-plus"
+    color="#FE6AB1"
+    @click="openDialog"
+  />
 </template>
 
 <script>
 export default {
-  name: "DeviceCard",
+  name: "AddHub",
   data() {
     return {
       showDialog: false,
@@ -38,8 +38,6 @@ export default {
 }
 .card {
   width: 25vh;
-  margin-left: 2vh;
-  margin-top: 2vh;
 }
 
 .card-text {
@@ -53,10 +51,11 @@ export default {
 }
 
 .add-device-button {
+  z-index: 9999999;
   margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }

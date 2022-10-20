@@ -1,5 +1,5 @@
 <script setup>
-import DeviceCard from "../components/DeviceCard.vue";
+import AddHub from "../components/AddHub.vue";
 import HubCard from "../components/HubCard.vue";
 </script>
 
@@ -10,13 +10,16 @@ import HubCard from "../components/HubCard.vue";
   <v-app v-if="isConnected" class="dash-app">
     <v-container class="dash-container">
       <v-alert type="success" v-if="alertConnected" class="alert">
-        Connection successfuly made!</v-alert
+        Conexão realizada com sucesso!</v-alert
       >
-      <p class="dash-title">Control panel</p>
+      <AddHub />
+      <p class="dash-title">Painel de controle</p>
       <p class="dash-hubs">Hubs: {{ hubs.length }}</p>
-      <p>{{ hubs }}</p>
-      <v-row style="height: 30vh">
-        <DeviceCard />
+
+      <v-row>
+        <v-col id="hub-cols" v-for="hub in hubs">
+          <HubCard :hub="hub" />
+        </v-col>
       </v-row>
     </v-container>
   </v-app>
@@ -137,5 +140,10 @@ export default {
   transform: translate(-50%, -50%);
   margin: 0 auto;
   animation: fadeinout 2s linear 1 forwards;
+}
+
+#hub-cols {
+  padding: 5px;
+  margin-top: 2vh;
 }
 </style>
