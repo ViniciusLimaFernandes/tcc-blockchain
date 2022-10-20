@@ -39,7 +39,11 @@
 
       <v-row v-if="hub.owner == userWallet" style="margin-left: 2px"
         >Saldo: {{ hub.balance }} SOL
-        <v-btn size="x-small" color="green" style="margin-left: 12px">
+        <v-btn
+          size="x-small"
+          color="green"
+          style="margin-left: 12px; margin-bottom: 4px"
+        >
           sacar
         </v-btn></v-row
       >
@@ -56,8 +60,8 @@
     </div>
 
     <v-card-actions>
-      <v-btn color="deep-purple-lighten-2" text @click="confirm">
-        confirmar
+      <v-btn color="deep-purple-lighten-2 " text @click="confirm">
+        selecionar
       </v-btn>
     </v-card-actions>
   </v-card>

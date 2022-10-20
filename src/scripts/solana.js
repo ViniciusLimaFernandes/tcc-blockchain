@@ -39,6 +39,8 @@ export const createHub = async (hubName, kwhPrice, totalPorts) => {
     .rpc();
 
   console.log(`created a new hub, transaction hash ${tx}`);
+
+  return tx;
 };
 
 export const getAllHubs = () => {

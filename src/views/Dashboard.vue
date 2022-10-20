@@ -133,6 +133,7 @@ export default {
 }
 
 .alert {
+  z-index: 99999999;
   width: fit-content;
   position: fixed;
   left: 50%;

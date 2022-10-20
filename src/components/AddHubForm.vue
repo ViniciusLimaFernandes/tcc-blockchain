@@ -1,4 +1,11 @@
 <template>
+  <v-alert type="success" v-if="successfullyCreatedHub" class="alert">
+    Hub criado com sucesso</v-alert
+  >
+  <v-alert type="error" v-if="failedCreatingHub" class="alert">
+    Falha ao criar o hub, verifique sua conexão e tente novamente mais
+    tarde</v-alert
+  >
   <v-dialog v-model="dialog">
     <v-card width="110vh" height="50vh" style="overflow: hidden">
       <v-row>
@@ -75,13 +82,16 @@ import { createHub, getAllHubs } from "../scripts/solana";
 
 <script>
 export default {
-  name: "RegisterDevice",
+  name: "AddHubForm",
+  emits: ["closeDialog"],
   data() {
     return {
       valid: true,
       name: "",
       price: "",
       ports: "",
+      successfullyCreatedHub: false,
+      failedCreatingHub: false,
       nameRules: [
         (v) => !!v || "Campo obrigatorio",
         (v) => v.length <= 25 || "Esse campo deve ter menos que 25 caracteres",
@@ -103,17 +113,38 @@ export default {
     onSave() {
       this.$refs.form.validate();
 
-      const priceInCents = this.price * 100;
+      try {
+        const priceInCents = this.price * 100;
 
-      console.log(
-        `saving a new hub with ${this.name}, ${priceInCents}, ${this.ports}`
-      );
-      createHub(this.name, priceInCents, this.ports);
-      console.log(getAllHubs());
+        console.log(
+          `saving a new hub with ${this.name}, ${priceInCents}, ${this.ports}`
+        );
+        const tx = createHub(this.name, priceInCents, this.ports);
+        if (tx) {
+          this.successfullyCreatedHub = true;
+        }
+
+        console.log(getAllHubs());
+      } catch (error) {
+        this.failedCreatingHub = true;
+      }
       this.$emit("closeDialog");
     },
     closeDialog() {
       this.$emit("closeDialog");
+    },
+  },
+
+  watch: {
+    successfullyCreatedHub() {
+      setTimeout(() => {
+        this.successfullyCreatedHub = false;
+      }, 5000);
+    },
+    failedCreatingHub() {
+      setTimeout(() => {
+        this.failedCreatingHub = false;
+      }, 5000);
     },
   },
 };
@@ -134,5 +165,16 @@ export default {
 .form-inputs {
   left: 350;
   width: 50vh;
+}
+
+.alert {
+  z-index: 99999999;
+  width: fit-content;
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  animation: fadeinout 2s linear 1 forwards;
 }
 </style>
