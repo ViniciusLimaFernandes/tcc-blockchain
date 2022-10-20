@@ -41,11 +41,26 @@ export const createHub = async (hubName, kwhPrice, totalPorts) => {
   console.log(`created a new hub, transaction hash ${tx}`);
 };
 
-export const getAllHubs = async () => {
+export const getAllHubs = () => {
   const provider = getProvider();
   const program = new Program(idl, programId, provider);
 
-  const hubs = await program.account.hub.all();
+  let hubs = [];
+
+  program.account.hub.all().then((blockchainHubs) => {
+    blockchainHubs.map((h, index) => {
+      const hub = {
+        publicKey: h.publicKey.toString(),
+        name: h.account.name.toString(),
+        price: Number(h.account.kwhPrice),
+        usages: Number(h.account.usages),
+        ports: Number(h.account.totalPorts),
+        balance: Number(h.account.balance),
+      };
+
+      hubs.push(hub);
+    });
+  });
 
   return hubs;
 };

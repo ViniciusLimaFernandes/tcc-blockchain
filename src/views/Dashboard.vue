@@ -1,5 +1,6 @@
 <script setup>
 import DeviceCard from "../components/DeviceCard.vue";
+import HubCard from "../components/HubCard.vue";
 </script>
 
 <template>
@@ -12,7 +13,8 @@ import DeviceCard from "../components/DeviceCard.vue";
         Connection successfuly made!</v-alert
       >
       <p class="dash-title">Control panel</p>
-      <p class="dash-hubs">Hubs: 0</p>
+      <p class="dash-hubs">Hubs: {{ hubs.length }}</p>
+      <p>{{ hubs }}</p>
       <v-row style="height: 30vh">
         <DeviceCard />
       </v-row>
@@ -22,6 +24,7 @@ import DeviceCard from "../components/DeviceCard.vue";
 
 <script>
 import { useWallet } from "solana-wallets-vue";
+import { getAllHubs } from "../scripts/solana";
 
 export default {
   name: "Dashboard",
@@ -32,6 +35,7 @@ export default {
       isConnected: false,
       alertConnected: false,
       alertDisconnected: false,
+      hubs: getAllHubs(),
     };
   },
 
@@ -59,6 +63,14 @@ export default {
           this.alertDisconnected = false;
         }, 5000);
       }
+    },
+  },
+
+  methods: {
+    async getHubs() {
+      const hubs = await getAllHubs();
+      console.log(hubs);
+      return hubs;
     },
   },
 };
