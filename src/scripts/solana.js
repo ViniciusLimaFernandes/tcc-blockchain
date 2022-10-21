@@ -6,6 +6,7 @@ import {
   utils,
   BN,
 } from "@project-serum/anchor";
+import { totalCostInSol } from "./pricing";
 
 import idl from "../config/idl.json";
 
@@ -43,6 +44,49 @@ export const createHub = async (hubName, kwhPrice, totalPorts) => {
   return tx;
 };
 
+export const useHub = async (usagePrice, hubPublicKey) => {
+  const provider = getProvider();
+  const program = new Program(idl, programId, provider);
+
+  console.log("using hub... ", provider.wallet.publicKey.toString());
+
+  console.log(program);
+
+  let tx = await program.methods
+    .useHub(usagePrice)
+    .accounts({
+      hub: hubPublicKey,
+      user: provider.wallet.publicKey,
+      systemProgram: web3.SystemProgram.programId,
+    })
+    .rpc();
+
+  console.log(`using hub, transaction hash ${tx}`);
+
+  return tx;
+};
+
+export const withdraw = async (hubPublicKey) => {
+  const provider = getProvider();
+  const program = new Program(idl, programId, provider);
+
+  console.log("withdraw from hub ", provider.wallet.publicKey.toString());
+
+  console.log(program);
+
+  let tx = await program.methods
+    .withdraw()
+    .accounts({
+      hub: hubPublicKey,
+      user: provider.wallet.publicKey,
+    })
+    .rpc();
+
+  console.log(`withdraw from hub, transaction hash ${tx}`);
+
+  return tx;
+};
+
 export const getAllHubs = () => {
   const provider = getProvider();
   const program = new Program(idl, programId, provider);
@@ -52,6 +96,7 @@ export const getAllHubs = () => {
   program.account.hub.all().then((blockchainHubs) => {
     blockchainHubs.map((h, index) => {
       const hub = {
+        publicKeyObj: h.publicKey,
         publicKey: h.publicKey.toString(),
         name: h.account.name.toString(),
         price: Number(h.account.kwhPrice / 100),
