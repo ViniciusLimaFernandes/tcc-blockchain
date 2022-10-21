@@ -83,7 +83,7 @@ import { createHub, getAllHubs } from "../scripts/solana";
 <script>
 export default {
   name: "AddHubForm",
-  emits: ["closeDialog"],
+  emits: ["closeDialog", "updateHubs"],
   data() {
     return {
       valid: true,
@@ -119,10 +119,11 @@ export default {
         console.log(
           `saving a new hub with ${this.name}, ${priceInCents}, ${this.ports}`
         );
-        const tx = createHub(this.name, priceInCents, this.ports);
-        if (tx) {
+
+        createHub(this.name, priceInCents, this.ports).then((tx) => {
           this.successfullyCreatedHub = true;
-        }
+          this.$emit("updateHubs");
+        });
 
         console.log(getAllHubs());
       } catch (error) {

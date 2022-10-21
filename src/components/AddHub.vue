@@ -3,7 +3,11 @@ import AddHubForm from "./AddHubForm.vue";
 </script>
 
 <template>
-  <AddHubForm :dialog="showDialog" @closeDialog="closeDialog" />
+  <AddHubForm
+    :dialog="showDialog"
+    @closeDialog="closeDialog"
+    @updateHubs="updateHubs"
+  />
   <v-btn
     class="add-device-button"
     icon="mdi-plus"
@@ -15,6 +19,7 @@ import AddHubForm from "./AddHubForm.vue";
 <script>
 export default {
   name: "AddHub",
+  emits: ["updateHubs"],
   data() {
     return {
       showDialog: false,
@@ -26,6 +31,9 @@ export default {
     },
     closeDialog() {
       this.showDialog = false;
+    },
+    updateHubs() {
+      this.$emit("updateHubs");
     },
   },
 };

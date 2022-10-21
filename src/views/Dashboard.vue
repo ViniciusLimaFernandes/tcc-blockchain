@@ -7,16 +7,24 @@ import HubCard from "../components/HubCard.vue";
   <v-alert type="error" v-if="alertDisconnected" class="alert">
     You must connect your wallet</v-alert
   >
-  <v-app v-if="isConnected" class="dash-app">
+  <v-app v-if="isConnected" :key="refresh" class="dash-app">
     <v-container class="dash-container">
       <v-alert type="success" v-if="alertConnected" class="alert">
         Conexão realizada com sucesso!</v-alert
       >
-      <AddHub />
-      <p class="dash-title">Painel de controle</p>
-      <p class="dash-hubs">Hubs: {{ hubs.length }}</p>
+      <AddHub @updateHubs="updateHubs" />
+      <v-progress-linear
+        v-if="loading"
+        color="deep-purple accent-4"
+        indeterminate
+        rounded
+        height="6"
+      >
+      </v-progress-linear>
+      <p v-if="!loading" class="dash-title">Painel de controle</p>
+      <p v-if="!loading" class="dash-hubs">Hubs: {{ hubs.length }}</p>
 
-      <v-row>
+      <v-row v-if="!loading">
         <v-col id="hub-cols" v-for="hub in hubs">
           <HubCard :hub="hub" />
         </v-col>
@@ -38,7 +46,9 @@ export default {
       isConnected: false,
       alertConnected: false,
       alertDisconnected: false,
-      hubs: getAllHubs(),
+      loading: false,
+      refresh: 0,
+      hubs: [],
     };
   },
 
@@ -51,6 +61,15 @@ export default {
         console.log(connection);
       },
       deep: true,
+    },
+    hubs() {
+      console.log(`Len: ${this.hubs.length}, Bool: ${this.hubs.length == 0}`);
+      if (this.hubs.length == 0) {
+        this.loading = true;
+      }
+      setTimeout(() => {
+        this.loading = false;
+      }, 5000);
     },
     alertConnected(status) {
       if (status) {
@@ -70,11 +89,19 @@ export default {
   },
 
   methods: {
-    async getHubs() {
-      const hubs = await getAllHubs();
-      console.log(hubs);
-      return hubs;
+    updateHubs() {
+      this.hubs.pop();
+      const updatedHubs = getAllHubs();
+      this.hubs = updatedHubs;
+
+      setTimeout(() => {
+        this.refresh += 1;
+      }, 5000);
     },
+  },
+
+  created() {
+    this.hubs = getAllHubs();
   },
 };
 </script>
