@@ -27,8 +27,6 @@ export const createHub = async (hubName, kwhPrice, totalPorts) => {
     provider.wallet.publicKey.toString()
   );
 
-  console.log(program);
-
   let tx = await program.methods
     .create(new BN(kwhPrice), new BN(totalPorts), hubName)
     .accounts({
@@ -44,7 +42,7 @@ export const createHub = async (hubName, kwhPrice, totalPorts) => {
   return tx;
 };
 
-export const useHub = async (usagePrice, hubPublicKey) => {
+export const useHub = async (totalKWh, kwhPrice, hubPublicKey) => {
   const provider = getProvider();
   const program = new Program(idl, programId, provider);
 
@@ -52,8 +50,10 @@ export const useHub = async (usagePrice, hubPublicKey) => {
 
   console.log(program);
 
+  const costInSOL = await totalCostInSol(totalKWh, kwhPrice);
+
   let tx = await program.methods
-    .useHub(usagePrice)
+    .useHub(costInSOL)
     .accounts({
       hub: hubPublicKey,
       user: provider.wallet.publicKey,

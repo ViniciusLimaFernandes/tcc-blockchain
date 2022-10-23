@@ -5,7 +5,7 @@ import HubCard from "../components/HubCard.vue";
 
 <template>
   <v-alert type="error" v-if="alertDisconnected" class="alert">
-    You must connect your wallet</v-alert
+    Desconectado</v-alert
   >
   <v-app v-if="isConnected" :key="refresh" class="dash-app">
     <v-container class="dash-container">

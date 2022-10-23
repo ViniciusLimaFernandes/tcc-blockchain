@@ -1,4 +1,9 @@
+<script setup>
+import UseHubForm from "../components/UseHubForm.vue";
+</script>
+
 <template>
+  <UseHubForm />
   <v-card :loading="loading" class="card">
     <v-progress-linear
       v-if="loading"
