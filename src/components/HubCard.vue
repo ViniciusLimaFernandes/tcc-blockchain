@@ -3,7 +3,11 @@ import UseHubForm from "../components/UseHubForm.vue";
 </script>
 
 <template>
-  <UseHubForm />
+  <UseHubForm
+    :pubKey="hub.pubKeyObject"
+    :kwhPrice="hub.price"
+    :useHubDialog="false"
+  />
   <v-card :loading="loading" class="card">
     <v-progress-linear
       v-if="loading"
@@ -17,7 +21,7 @@ import UseHubForm from "../components/UseHubForm.vue";
     <img id="hub-image" src="../assets/hub-iot.png" cover />
 
     <v-card-item>
-      <v-card-title>{{ hub.name }}</v-card-title>
+      <v-card-title>{{ hub.name }} </v-card-title>
 
       <v-card-subtitle>
         <span class="mr-1">{{ hub.publicKey }}</span>

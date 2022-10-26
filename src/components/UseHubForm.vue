@@ -75,6 +75,7 @@ export default {
   },
   methods: {
     onContinue() {
+      console.log(`use hub called... `);
       this.$refs.form.validate();
 
       try {
@@ -84,11 +85,12 @@ export default {
           `saving a new hub with ${this.name}, ${priceInCents}, ${this.ports}`
         );
 
-        useHub(consumed, this.kwhPrice, this.pubKey).then((tx) => {
+        useHub(this.KWh, this.kwhPrice, this.pubKey).then((tx) => {
           this.successfullyUsedHub = true;
           this.$emit("updateHubs");
         });
       } catch (error) {
+        console.log(error);
         this.failedUsingHub = true;
       }
       this.$emit("closeUseHubDialog");
