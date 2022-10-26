@@ -10,12 +10,12 @@
     <v-card width="110vh" height="50vh" style="overflow: hidden">
       <v-row>
         <v-col width="50vh">
-          <img id="form-image" src="../assets/3d-ppl.png" />
+          <img id="form-image" src="../assets/working-3d.png" />
         </v-col>
 
         <v-col class="form-inputs">
-          <v-card-title class="text grey lighten-2">
-            Falta pouco! Conte-nos sobre o seu consumo...
+          <v-card-title class="text grey lighten-2"
+            >Falta pouco! Conte-nos sobre o seu consumo...
           </v-card-title>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row style="margin-top: 3px">
@@ -24,7 +24,7 @@
                   variant="underlined"
                   label="KWh a ser consumido *"
                   hint="Digite a quantidade de KWh que deseja consumir"
-                  counter="4"
+                  oninput="if(this.value < 0) this.value = 1;"
                   v-model="KWh"
                   :rules="kwhRules"
                   type="number"
@@ -62,10 +62,7 @@ export default {
       KWh: 0,
       successfullyUsedHub: false,
       failedUsingHub: false,
-      kwhRules: [
-        (v) => !!v || "Campo obrigatorio",
-        (v) => (v > 0 && v <= 4) || "Limite: 1000 KWh",
-      ],
+      kwhRules: [(v) => !!v || "Campo obrigatorio"],
     };
   },
   props: {
