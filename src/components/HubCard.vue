@@ -5,6 +5,7 @@ import UseHubForm from "../components/UseHubForm.vue";
 <template>
   <UseHubForm
     @closeUseHubDialog="showUseHubForm = false"
+    @updateHubs="updateAllHubs"
     :pubKey="hub.publicKeyObj"
     :kwhPrice="hub.price"
     :useHubDialog="showUseHubForm"
@@ -84,6 +85,7 @@ import { withdraw } from "../scripts/solana";
 
 export default {
   name: "HubCard",
+  emits: ["updateHubs"],
   props: {
     hub: Object,
   },
@@ -106,9 +108,14 @@ export default {
       return this.userWallet == hub.owner;
     },
     withdrawHubBalance() {
-      withdraw(this.hub.publicKey).catch((error) => {
-        console.log("failed to withdraw: ", error.message);
-      });
+      withdraw(this.hub.publicKey)
+        .then(() => this.$emit("updateHubs"))
+        .catch((error) => {
+          console.log("failed to withdraw: ", error.message);
+        });
+    },
+    updateAllHubs() {
+      this.$emit("updateHubs");
     },
   },
 };

@@ -12,6 +12,9 @@ import HubCard from "../components/HubCard.vue";
       <v-alert type="success" v-if="alertConnected" class="alert">
         Conexão realizada com sucesso!</v-alert
       >
+      <v-alert type="success" v-if="alertSuccess" class="alert">
+        Transação concluida!</v-alert
+      >
       <AddHub @updateHubs="updateHubs" />
       <v-progress-linear
         v-if="loading"
@@ -26,7 +29,7 @@ import HubCard from "../components/HubCard.vue";
 
       <v-row v-if="!loading">
         <v-col id="hub-cols" v-for="hub in hubs">
-          <HubCard :hub="hub" />
+          <HubCard :hub="hub" @updateHubs="updateHubs" />
         </v-col>
       </v-row>
     </v-container>
@@ -46,6 +49,7 @@ export default {
       isConnected: false,
       alertConnected: false,
       alertDisconnected: false,
+      alertSuccess: false,
       loading: false,
       refresh: 0,
       hubs: [],
@@ -86,6 +90,13 @@ export default {
         }, 5000);
       }
     },
+    alertSuccess(status) {
+      if (status) {
+        setTimeout(() => {
+          this.alertSuccess = false;
+        }, 5000);
+      }
+    },
   },
 
   methods: {
@@ -97,6 +108,8 @@ export default {
       setTimeout(() => {
         this.refresh += 1;
       }, 5000);
+
+      this.alertSuccess = true;
     },
   },
 

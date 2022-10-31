@@ -83,8 +83,8 @@ export default {
         );
 
         useHub(this.KWh, this.kwhPrice, this.pubKey).then((tx) => {
-          this.successfullyUsedHub = true;
           this.$emit("updateHubs");
+          this.successfullyUsedHub = true;
         });
       } catch (error) {
         console.log(error);
