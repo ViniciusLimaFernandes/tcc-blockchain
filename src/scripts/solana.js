@@ -70,7 +70,7 @@ export const withdraw = async (hubPublicKey) => {
   const provider = getProvider();
   const program = new Program(idl, programId, provider);
 
-  console.log("withdraw from hub ", provider.wallet.publicKey.toString());
+  console.log("withdraw from hub ", hubPublicKey);
 
   console.log(program);
 
@@ -108,6 +108,8 @@ export const getAllHubs = () => {
 
       hubs.push(hub);
     });
+
+    hubs.sort((a, b) => (a.price > b.price ? 1 : -1));
   });
 
   return hubs;

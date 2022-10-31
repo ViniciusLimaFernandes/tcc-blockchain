@@ -4,6 +4,7 @@ import UseHubForm from "../components/UseHubForm.vue";
 
 <template>
   <UseHubForm
+    @closeUseHubDialog="showUseHubForm = false"
     :pubKey="hub.publicKeyObj"
     :kwhPrice="hub.price"
     :useHubDialog="showUseHubForm"
@@ -52,6 +53,7 @@ import UseHubForm from "../components/UseHubForm.vue";
           size="x-small"
           color="green"
           style="margin-left: 12px; margin-bottom: 4px"
+          @click="withdrawHubBalance"
         >
           sacar
         </v-btn></v-row
@@ -78,6 +80,7 @@ import UseHubForm from "../components/UseHubForm.vue";
 
 <script>
 import { useWallet } from "solana-wallets-vue";
+import { withdraw } from "../scripts/solana";
 
 export default {
   name: "HubCard",
@@ -101,6 +104,11 @@ export default {
     isOwner() {
       console.log(`User wallet: ${this.userWallet}, hub owner: ${hub.owner}`);
       return this.userWallet == hub.owner;
+    },
+    withdrawHubBalance() {
+      withdraw(this.hub.publicKey).catch((error) => {
+        console.log("failed to withdraw: ", error.message);
+      });
     },
   },
 };
