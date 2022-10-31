@@ -4,9 +4,9 @@ import UseHubForm from "../components/UseHubForm.vue";
 
 <template>
   <UseHubForm
-    :pubKey="hub.pubKeyObject"
+    :pubKey="hub.publicKeyObj"
     :kwhPrice="hub.price"
-    :useHubDialog="false"
+    :useHubDialog="showUseHubForm"
   />
   <v-card :loading="loading" class="card">
     <v-progress-linear
@@ -85,6 +85,7 @@ export default {
     hub: Object,
   },
   data: () => ({
+    showUseHubForm: false,
     loading: false,
     userWallet: useWallet().publicKey.value.toString(),
     selection: 1,
@@ -92,6 +93,8 @@ export default {
   methods: {
     confirm() {
       this.loading = true;
+
+      this.showUseHubForm = true;
 
       setTimeout(() => (this.loading = false), 4000);
     },

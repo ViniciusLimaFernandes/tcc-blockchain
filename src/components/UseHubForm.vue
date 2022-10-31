@@ -76,10 +76,10 @@ export default {
       this.$refs.form.validate();
 
       try {
-        const priceInCents = this.price * 100;
+        const priceInCents = this.kwhPrice * 100;
 
         console.log(
-          `saving a new hub with ${this.name}, ${priceInCents}, ${this.ports}`
+          `using hub with pubkey:${this.pubKey}, kwhPrice:${priceInCents}, kwh:${this.KWh}`
         );
 
         useHub(this.KWh, this.kwhPrice, this.pubKey).then((tx) => {

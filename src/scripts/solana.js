@@ -53,7 +53,7 @@ export const useHub = async (totalKWh, kwhPrice, hubPublicKey) => {
   const costInSOL = await totalCostInSol(totalKWh, kwhPrice);
 
   let tx = await program.methods
-    .useHub(costInSOL)
+    .useHub(new BN(costInSOL * web3.LAMPORTS_PER_SOL))
     .accounts({
       hub: hubPublicKey,
       user: provider.wallet.publicKey,
@@ -102,7 +102,7 @@ export const getAllHubs = () => {
         price: Number(h.account.kwhPrice / 100),
         usages: Number(h.account.usages),
         ports: Number(h.account.totalPorts),
-        balance: Number(h.account.balance),
+        balance: Number(h.account.balance / web3.LAMPORTS_PER_SOL),
         owner: h.account.owner.toString(),
       };
 
