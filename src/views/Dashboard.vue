@@ -1,9 +1,11 @@
 <script setup>
 import AddHub from "../components/AddHub.vue";
 import HubCard from "../components/HubCard.vue";
+import HubAdhesionsVue from "../components/HubAdhesions.vue";
 </script>
 
 <template>
+  <HubAdhesionsVue />
   <v-alert type="error" v-if="alertDisconnected" class="alert">
     Desconectado</v-alert
   >
