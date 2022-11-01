@@ -7,7 +7,7 @@ import { config } from "../scripts/pubsub.js";
 export default {
   name: "HubAdhesions",
   created() {
-    console.log(process.env.VUE_APP_MQTT_HOST);
+    console.log(config);
     var client = mqtt.connect(config);
 
     client.on("connect", () => {
@@ -15,7 +15,6 @@ export default {
     });
 
     client.on("error", (error) => {
-      console.log("sheee");
       console.log(error);
     });
 
