@@ -5,7 +5,7 @@ import HubAdhesionsVue from "../components/HubAdhesions.vue";
 </script>
 
 <template>
-  <HubAdhesionsVue />
+  <HubAdhesionsVue :dialog="false" />
   <v-alert type="error" v-if="alertDisconnected" class="alert">
     Desconectado</v-alert
   >
