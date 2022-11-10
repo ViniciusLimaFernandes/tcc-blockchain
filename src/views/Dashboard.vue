@@ -69,7 +69,6 @@ export default {
       deep: true,
     },
     hubs() {
-      console.log(`Len: ${this.hubs.length}, Bool: ${this.hubs.length == 0}`);
       if (this.hubs.length == 0) {
         this.loading = true;
       }
