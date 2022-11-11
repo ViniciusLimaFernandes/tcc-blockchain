@@ -4,7 +4,6 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
-import inject from "@rollup/plugin-inject";
 
 // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
 import vuetify from "vite-plugin-vuetify";
@@ -13,9 +12,6 @@ import vuetify from "vite-plugin-vuetify";
 export default defineConfig({
   build: {
     target: "es2020",
-    rollupOptions: {
-      plugins: [inject({ Buffer: ["Buffer", "Buffer"] })],
-    },
   },
   optimizeDeps: {
     esbuildOptions: {
