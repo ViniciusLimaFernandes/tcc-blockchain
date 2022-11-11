@@ -111,6 +111,9 @@ export default {
       this.hubs.pop();
       const updatedHubs = getAllHubs();
       this.hubs = updatedHubs;
+      findAdhesionsByHub().then((adhesionsByHub) => {
+        this.adhesionsByHub = adhesionsByHub;
+      });
 
       setTimeout(() => {
         this.refresh += 1;
