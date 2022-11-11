@@ -11,6 +11,7 @@ import {
   SolflareWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import "solana-wallets-vue/styles.css";
+import { Buffer } from "buffer";
 
 const walletOptions = {
   wallets: [
@@ -22,6 +23,8 @@ const walletOptions = {
 };
 
 loadFonts();
+
+window.Buffer = Buffer;
 
 createApp(App)
   .use(SolanaWallets, walletOptions)
