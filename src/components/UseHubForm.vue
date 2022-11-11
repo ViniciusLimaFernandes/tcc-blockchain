@@ -50,6 +50,8 @@
 
 <script setup>
 import { useHub } from "../scripts/solana";
+import { createAdhesion, Adhesion } from "../scripts/mongo";
+import { publishAdhesion } from "../scripts/pubsub";
 </script>
 
 <script>
@@ -69,6 +71,9 @@ export default {
     pubKey: Object,
     kwhPrice: Number,
     useHubDialog: Boolean,
+    hubID: String,
+    hubOwner: String,
+    port: Number,
   },
   methods: {
     onContinue() {
@@ -83,6 +88,17 @@ export default {
         );
 
         useHub(this.KWh, this.kwhPrice, this.pubKey).then((tx) => {
+          const adhesion = new Adhesion(
+            this.hubID,
+            this.hubOwner,
+            this.port,
+            0,
+            this.KWh,
+            true
+          );
+
+          createAdhesion(adhesion);
+          publishAdhesion(adhesion);
           this.$emit("updateHubs");
           this.successfullyUsedHub = true;
         });

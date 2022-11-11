@@ -11,30 +11,42 @@ const headers = {
   },
 };
 
-let body = {
-  collection: "adhesions",
-  database: "devices",
-  dataSource: "TCC-Cluster",
+const defultBody = () => {
+  return {
+    collection: "adhesions",
+    database: "devices",
+    dataSource: "TCC-Cluster",
+  };
 };
 
-export const findActiveAdhesions = async () => {
+export const findActiveAdhesions = () => {
   const findHubUrl = `${url}/find`;
   const filter = {
     active: true,
   };
-  body.filter = filter;
+  let findBody = defultBody();
+  findBody.filter = filter;
 
-  const adhesions = await axios.post(findHubUrl, body, headers);
+  let adhesions = [];
 
-  return adhesions.data.documents;
+  axios.post(findHubUrl, findBody, headers).then((result) => {
+    result.data.documents.map((adhesion) => {
+      adhesions.push(adhesion);
+    });
+  });
+
+  return adhesions;
 };
 
 export const createAdhesion = (adhesion) => {
   const createAdhesionUrl = `${url}/insertOne`;
-  body.document = adhesion;
+  let createBody = defultBody();
+  createBody.document = adhesion;
 
-  axios.post(createAdhesionUrl, body, headers).then((result) => {
-    console.log(`adhesion ${result.insertedId} successfully created`);
+  console.log(createBody);
+
+  axios.post(createAdhesionUrl, createBody, headers).then((result) => {
+    console.log(`adhesion ${result.data.insertedId} successfully created`);
   });
 };
 
@@ -48,10 +60,11 @@ export const updateAdhesion = (hubId) => {
     $set: { active: false },
   };
 
-  body.filter = filter;
-  body.update = update;
+  let updateBody = defultBody();
+  updateBody.filter = filter;
+  updateBody.update = update;
 
-  axios.post(updateAdhesionUrl, body, headers).then((result) => {
+  axios.post(updateAdhesionUrl, updateBody, headers).then((result) => {
     console.log(`hub ${hubId} successfully updated`);
   });
 };

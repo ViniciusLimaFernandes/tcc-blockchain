@@ -17,7 +17,6 @@ export default {
   },
   created() {
     var client = mqttConnection();
-    findActiveAdhesions().then((result) => console.log(result));
 
     client.on("connect", () => {
       console.log("Connected with MQTT topic");

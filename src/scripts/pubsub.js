@@ -10,7 +10,12 @@ const config = {
   password: import.meta.env.VITE_MQTT_PASS,
 };
 
+var client = mqtt.connect(config);
+
 export const mqttConnection = () => {
-  var client = mqtt.connect(config);
   return client;
+};
+
+export const publishAdhesion = (adhesion) => {
+  client.publish("esp", JSON.stringify(adhesion));
 };

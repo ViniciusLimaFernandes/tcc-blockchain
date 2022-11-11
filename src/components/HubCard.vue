@@ -9,6 +9,9 @@ import UseHubForm from "../components/UseHubForm.vue";
     :pubKey="hub.publicKeyObj"
     :kwhPrice="hub.price"
     :useHubDialog="showUseHubForm"
+    :hubID="hub.publicKey"
+    :hubOwner="hub.owner"
+    :port="this.selectedPort"
   />
   <v-card :loading="loading" class="card">
     <v-progress-linear
@@ -64,15 +67,24 @@ import UseHubForm from "../components/UseHubForm.vue";
     <v-divider class="mx-4 mb-1"></v-divider>
 
     <v-card-title style="font-size: 16px">portas disponíveis</v-card-title>
-
     <div class="px-4">
-      <v-chip-group v-model="selection">
-        <v-chip v-for="port in hub.ports">{{ port }}</v-chip>
+      <v-chip-group mandatory selected-class="text-purple">
+        <v-chip
+          v-for="port in hub.ports"
+          :key="port"
+          :value="port"
+          @click="this.selectedPort = port"
+          >{{ port }}</v-chip
+        >
       </v-chip-group>
     </div>
-
     <v-card-actions>
-      <v-btn color="deep-purple-lighten-2 " text @click="confirm">
+      <v-btn
+        color="deep-purple-lighten-2 "
+        :disabled="!(this.selectedPort != null)"
+        text
+        @click="confirm"
+      >
         selecionar
       </v-btn>
     </v-card-actions>
@@ -90,13 +102,16 @@ export default {
     hub: Object,
   },
   data: () => ({
+    valid: false,
     showUseHubForm: false,
     loading: false,
     userWallet: useWallet().publicKey.value.toString(),
     selection: 1,
+    selectedPort: null,
   }),
   methods: {
     confirm() {
+      console.log("porta selecionada: ", this.selectedPort);
       this.loading = true;
 
       this.showUseHubForm = true;

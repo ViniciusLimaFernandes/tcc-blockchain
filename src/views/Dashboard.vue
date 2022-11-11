@@ -2,6 +2,7 @@
 import AddHub from "../components/AddHub.vue";
 import HubCard from "../components/HubCard.vue";
 import HubAdhesionsVue from "../components/HubAdhesions.vue";
+import { findActiveAdhesions } from "../scripts/mongo";
 </script>
 
 <template>
@@ -55,6 +56,7 @@ export default {
       loading: false,
       refresh: 0,
       hubs: [],
+      adhesions: [],
     };
   },
 
@@ -116,6 +118,7 @@ export default {
 
   created() {
     this.hubs = getAllHubs();
+    console.log(findActiveAdhesions());
   },
 };
 </script>
