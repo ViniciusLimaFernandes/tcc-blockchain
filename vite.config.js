@@ -33,6 +33,10 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
       mqtt: "mqtt/dist/mqtt.js",
+      process: "process/browser",
+      stream: "stream-browserify",
+      zlib: "browserify-zlib",
+      util: "util",
     },
   },
 });
