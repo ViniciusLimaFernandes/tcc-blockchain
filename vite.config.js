@@ -3,7 +3,7 @@ import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import nodePolyfills from "vite-plugin-node-stdlib-browser";
+import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
 
 // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
 import vuetify from "vite-plugin-vuetify";
@@ -12,12 +12,23 @@ import vuetify from "vite-plugin-vuetify";
 export default defineConfig({
   build: { target: "es2020" },
   optimizeDeps: {
-    esbuildOptions: { target: "es2020", supported: { bigint: true } },
+    esbuildOptions: {
+      define: {
+        global: "globalThis",
+      },
+      target: "es2020",
+      supported: { bigint: true },
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          buffer: true,
+        }),
+      ],
+    },
   },
   define: {
     "process.env": process.env,
   },
-  plugins: [vue(), vueJsx(), vuetify({ autoImport: true }), nodePolyfills()],
+  plugins: [vue(), vueJsx(), vuetify({ autoImport: true })],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),

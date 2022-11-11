@@ -9,6 +9,7 @@
     "preview": "vite preview --port 4173"
   },
   "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
     "@mdi/font": "5.9.55",
     "@project-serum/anchor": "^0.25.0",
     "@solana/wallet-adapter-wallets": "^0.17.2",
