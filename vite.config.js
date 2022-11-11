@@ -18,13 +18,9 @@ export default defineConfig({
       define: {
         global: "globalThis",
       },
+      plugins: [NodeGlobalsPolyfillPlugin()],
       target: "es2020",
       supported: { bigint: true },
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          buffer: true,
-        }),
-      ],
     },
   },
   define: {
@@ -35,10 +31,7 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
       mqtt: "mqtt/dist/mqtt.js",
-      process: "process/browser",
       stream: "stream-browserify",
-      zlib: "browserify-zlib",
-      util: "util",
     },
   },
 });
