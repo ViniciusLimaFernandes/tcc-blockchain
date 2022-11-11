@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const url =
-  "https://data.mongodb-api.com/app/data-ilhtg/endpoint/data/v1/action";
+  "https://cors-anywhere.herokuapp.com/https://data.mongodb-api.com/app/data-ilhtg/endpoint/data/v1/action";
 
 const headers = {
   headers: {
