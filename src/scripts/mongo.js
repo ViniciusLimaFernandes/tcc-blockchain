@@ -1,7 +1,5 @@
 import axios from "axios";
 
-axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-
 const url =
   "https://data.mongodb-api.com/app/data-ilhtg/endpoint/data/v1/action";
 
