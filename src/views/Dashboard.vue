@@ -2,7 +2,7 @@
 import AddHub from "../components/AddHub.vue";
 import HubCard from "../components/HubCard.vue";
 import HubAdhesionsVue from "../components/HubAdhesions.vue";
-import { findActiveAdhesions } from "../scripts/mongo";
+import { findActiveAdhesions, findAdhesionsByHub } from "../scripts/mongo";
 </script>
 
 <template>
@@ -32,7 +32,11 @@ import { findActiveAdhesions } from "../scripts/mongo";
 
       <v-row v-if="!loading">
         <v-col id="hub-cols" v-for="hub in hubs">
-          <HubCard :hub="hub" @updateHubs="updateHubs" />
+          <HubCard
+            :hub="hub"
+            :activePorts="this.adhesionsByHub"
+            @updateHubs="updateHubs"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -56,7 +60,7 @@ export default {
       loading: false,
       refresh: 0,
       hubs: [],
-      adhesions: [],
+      adhesionsByHub: {},
     };
   },
 
@@ -118,7 +122,9 @@ export default {
 
   created() {
     this.hubs = getAllHubs();
-    console.log(findActiveAdhesions());
+    findAdhesionsByHub().then((adhesionsByHub) => {
+      this.adhesionsByHub = adhesionsByHub;
+    });
   },
 };
 </script>

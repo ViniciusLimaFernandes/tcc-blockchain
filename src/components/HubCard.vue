@@ -73,6 +73,7 @@ import UseHubForm from "../components/UseHubForm.vue";
           v-for="port in hub.ports"
           :key="port"
           :value="port"
+          :disabled="isActive(port)"
           @click="this.selectedPort = port"
           >{{ port }}</v-chip
         >
@@ -100,6 +101,7 @@ export default {
   emits: ["updateHubs"],
   props: {
     hub: Object,
+    activePorts: Object,
   },
   data: () => ({
     valid: false,
@@ -131,6 +133,16 @@ export default {
     },
     updateAllHubs() {
       this.$emit("updateHubs");
+    },
+    isActive(port) {
+      let hubKey = this.hub.publicKey;
+      if (this.activePorts.hasOwnProperty(hubKey)) {
+        if (this.activePorts[hubKey].includes(port)) {
+          return true;
+        }
+        return false;
+      }
+      return false;
     },
   },
 };

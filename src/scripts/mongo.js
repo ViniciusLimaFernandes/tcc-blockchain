@@ -38,6 +38,25 @@ export const findActiveAdhesions = () => {
   return adhesions;
 };
 
+export const findAdhesionsByHub = async () => {
+  const findHubUrl = `${url}/find`;
+  const filter = {
+    active: true,
+  };
+  let findBody = defultBody();
+  findBody.filter = filter;
+
+  let result = await axios.post(findHubUrl, findBody, headers);
+  let adhesions = result.data.documents;
+
+  let adhesionsByHub = adhesions.reduce((iA, cA) => {
+    (iA[cA.hub] = iA[cA.hub] || []).push(cA.port);
+    return iA;
+  }, {});
+
+  return adhesionsByHub;
+};
+
 export const createAdhesion = (adhesion) => {
   const createAdhesionUrl = `${url}/insertOne`;
   let createBody = defultBody();
