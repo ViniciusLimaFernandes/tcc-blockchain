@@ -1,4 +1,6 @@
-export const config = {
+import mqtt from "mqtt";
+
+const config = {
   host: import.meta.env.VITE_MQTT_HOST,
   hostname: import.meta.env.VITE_MQTT_HOST,
   port: 8884,
@@ -8,16 +10,7 @@ export const config = {
   password: import.meta.env.VITE_MQTT_PASS,
 };
 
-export const Adhesion = class {
-  constructor(hubID, port, consumed, totalKwh, active) {
-    this.hub = hubID;
-    this.port = port;
-    this.consumed = consumed;
-    this.total_kwh = totalKwh;
-    this.active = active;
-  }
-
-  static from(json) {
-    return Object.assign(new AdhesionStatus(), json);
-  }
+export const mqttConnection = () => {
+  var client = mqtt.connect(config);
+  return client;
 };

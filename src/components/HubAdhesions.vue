@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import mqtt from "mqtt";
-import { config } from "../scripts/pubsub.js";
+import { mqttConnection } from "../scripts/pubsub.js";
+import { findActiveAdhesions } from "../scripts/mongo.js";
 
 export default {
   name: "HubAdhesions",
@@ -16,8 +16,8 @@ export default {
     dialog: Boolean,
   },
   created() {
-    console.log(config);
-    var client = mqtt.connect(config);
+    var client = mqttConnection();
+    findActiveAdhesions().then((result) => console.log(result));
 
     client.on("connect", () => {
       console.log("Connected with MQTT topic");
