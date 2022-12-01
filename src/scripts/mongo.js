@@ -1,13 +1,12 @@
 import axios from "axios";
 
 const url =
-  "https://cors-anywhere.herokuapp.com/https://data.mongodb-api.com/app/data-ilhtg/endpoint/data/v1/action";
+  "https://proxy-tcc.herokuapp.com/https://data.mongodb-api.com/app/data-ilhtg/endpoint/data/v1/action";
 
 const headers = {
   headers: {
     "api-key": import.meta.env.VITE_MONGO_API_KEY,
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
+    "x-requested-with": "axios-web",
   },
 };
 
