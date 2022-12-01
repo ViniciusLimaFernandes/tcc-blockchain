@@ -127,6 +127,7 @@ export default {
     this.hubs = getAllHubs();
     findAdhesionsByHub().then((adhesionsByHub) => {
       this.adhesionsByHub = adhesionsByHub;
+      console.log(adhesionsByHub);
     });
   },
 };
