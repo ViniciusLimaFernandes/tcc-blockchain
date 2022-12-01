@@ -53,6 +53,8 @@ export const findAdhesionsByHub = async () => {
     return iA;
   }, {});
 
+  console.log(result);
+  console.log(adhesionsByHub);
   return adhesionsByHub;
 };
 
