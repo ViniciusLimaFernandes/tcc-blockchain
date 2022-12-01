@@ -111,9 +111,9 @@ export default {
       this.hubs.pop();
       const updatedHubs = getAllHubs();
       this.hubs = updatedHubs;
-      findAdhesionsByHub().then((adhesionsByHub) => {
-        this.adhesionsByHub = adhesionsByHub;
-      });
+      // findAdhesionsByHub().then((adhesionsByHub) => {
+      //   this.adhesionsByHub = adhesionsByHub;
+      // });
 
       setTimeout(() => {
         this.refresh += 1;
@@ -125,10 +125,9 @@ export default {
 
   created() {
     this.hubs = getAllHubs();
-    findAdhesionsByHub().then((adhesionsByHub) => {
-      this.adhesionsByHub = adhesionsByHub;
-      console.log(adhesionsByHub);
-    });
+    // findAdhesionsByHub().then((adhesionsByHub) => {
+    //   this.adhesionsByHub = adhesionsByHub;
+    // });
   },
 };
 </script>
